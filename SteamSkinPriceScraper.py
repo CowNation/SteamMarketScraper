@@ -1,6 +1,7 @@
 # - # - # - # - # - # - # - # - # -# - # - # - # - # - # - # - # - # - #
 import urllib.request, json
 import enum
+ST = "StatTrak%E2%84%A2 "
 FN = " (Factory New)"
 MW = " (Minimal Wear)"
 FT = " (Field-Tested)"
@@ -19,20 +20,23 @@ class MarketItem():
   lowest_price = ""
   median_price = ""
   name = ""
-def GetMarketItem(appid, name): 
-  url = urllib.request.urlopen("http://steamcommunity.com/market/priceoverview/?appid=%s&currency=1&market_hash_name=" % appid + name)
+  volume = 0
+def GetMarketItem(appid, name):
+  url = urllib.request.urlopen("http://steamcommunity.com/market/priceoverview/?appid=%s&currency=1&market_hash_name=" % (appid) + name)
   data = json.loads(url.read().decode())
   strdat = str(data)
   Item = MarketItem()
-  if (strdat.find("'success': False") == -1):
+  Item.name = name
+  if (strdat.find("success': True") != -1):
     Item.sucess = True
-    Item.name = name
   if (strdat.find('median_price') != -1):
-    Item.median_price = strdat[strdat.find('median_price')+16:-2]
+    Item.median_price = data['median_price']
   if (strdat.find('lowest_price') != -1):
-    Item.lowest_price = strdat[strdat.find('lowest_price')+16:-2]
+    Item.lowest_price = data['lowest_price']
+  if (strdat.find('volume') != -1):
+    Item.volume = data['volume']
   return Item
-def PrintMarketItem(it):
+def PrintMarketItem(it, volume = True):
   if (len(it.name) > 0):
     print(it.name + ": ")
   if (len(it.median_price) > 0):
@@ -41,8 +45,10 @@ def PrintMarketItem(it):
     print(it.lowest_price)
   else:
     print("No valid price found!")
+  if (volume and len(it.volume) > 0):
+    print(it.volume)
 # - # - # - # - # - # - # - # - # -# - # - # - # - # - # - # - # - # - #
-it = GetMarketItem(AppId.CSGO.value, "AWP | Dragon Lore" + FT)
+it = GetMarketItem(AppId.CSGO.value, ST + "AWP | PAW" + FT)
 PrintMarketItem(it)
 
 it = GetMarketItem(AppId.TF2.value, "Mann Co. Supply Crate Key")
