@@ -36,7 +36,7 @@ def GetMarketItem(appid, name):
   if (strdat.find('volume') != -1):
     Item.volume = data['volume']
   return Item
-def PrintMarketItem(it, volume = True):
+def PrintMarketItem(it, volume = False):
   if (len(it.name) > 0):
     print(it.name + ": ")
   if (len(it.median_price) > 0):
