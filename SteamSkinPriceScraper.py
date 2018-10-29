@@ -26,7 +26,7 @@ class AppId(enum.Enum):
 class Currency(enum.Enum):
   USD = 1 # United States Dollars
   UKP = 2 # United Kingdom Pounds
-  EUR = 3 # Euros
+  EUR = 3 # European Euros
   CHF = 4 # Swiss Franc
   RUB = 5 # Russian Roubles
   POL = 6 # Polish złoty 
