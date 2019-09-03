@@ -44,11 +44,12 @@ class MarketItem():
 def GetMarketItem(appid, name, currency = Currency.USD.value):
   strdat = ""
   Item = MarketItem()
+  name = name.replace(" ", "+")
   try:
     url = urllib.request.urlopen("http://steamcommunity.com/market/priceoverview/?appid=%s&currency=%s&market_hash_name=" % (appid, currency) + name)
     data = json.loads(url.read().decode())
     strdat = str(data)
-    Item.name = name
+    Item.name = name.replace("+", " ").replace("StatTrak%E2%84%A2 ", "StatTrak ")
   except urllib.error.URLError as e:
     print("ERROR: %s" % e.reason)
     return MarketItem()
@@ -74,8 +75,7 @@ def PrintMarketItem(it, volume = False):
     print(it.volume)
 # - # - # - # - # - # - # - # - # -# - # - # - # - # - # - # - # - # - #
 PrintMarketItem(GetMarketItem(AppId.CSGO.value, ST + "AWP | PAW" + FN), False)
-PrintMarketItem(GetMarketItem(AppId.CSGO.value, ST + "AWP | PAW" + FN, Currency.UKP.value), False)
-PrintMarketItem(GetMarketItem(AppId.TF2.value, "Mann Co. Supply Crate Key"), False)
+PrintMarketItem(GetMarketItem(AppId.TF2.value, "Mann Co. Supply Crate Key", Currency.UKP.value), False)
 PrintMarketItem(GetMarketItem(AppId.DOTA2.value, "Sylvan Vedette"), False)
 PrintMarketItem(GetMarketItem(AppId.PUBG.value, "RAIDER CRATE"), False)
 PrintMarketItem(GetMarketItem(AppId.H1Z1.value, "Anarchy Leather Pants"), False)
