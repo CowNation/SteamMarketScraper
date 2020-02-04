@@ -66,12 +66,12 @@ namespace MarketScraper
 
 	public static class SteamMarket
 	{
-		public static MarketItem GetMarketItem(AppIds AppId, string Name, Currency Currency = Currency.USD)
+		public static MarketItem GetMarketItem(int AppId, string Name, Currency Currency = Currency.USD)
 		{
 			try
 			{
 				MarketItem Item;
-				Item = JsonConvert.DeserializeObject<MarketItem>(new WebClient().DownloadString("http://steamcommunity.com/market/priceoverview/?appid=" + (int)AppId + "&currency=" + Currency + "&market_hash_name=" + Name.Replace(" ", "+")));
+				Item = JsonConvert.DeserializeObject<MarketItem>(new WebClient().DownloadString("http://steamcommunity.com/market/priceoverview/?appid=" + AppId + "&currency=" + Currency + "&market_hash_name=" + Name.Replace(" ", "+")));
 				Item.name = Name.Replace("StatTrak%E2%84%A2 ", "StatTrak ");
 				return Item;
 			}
@@ -81,5 +81,7 @@ namespace MarketScraper
 				return null;
 			}
 		}
+
+		public static MarketItem GetMarketItem(AppIds AppId, string Name, Currency Currency = Currency.USD) => GetMarketItem((int)AppId, Name, Currency);
 	}
 }
