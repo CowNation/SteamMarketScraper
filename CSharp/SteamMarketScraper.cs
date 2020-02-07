@@ -1,11 +1,13 @@
-// - # - # - # - # - # - # - # - # -# - # - # - # - # - # - # - # - # - #
-//
-// WARNING: Steam market API only allows 19 requests per minute
-// You will get a Too Many Requests error if you exceed this!
-// ERROR: Internal Server Error means that the item does not exist, check
-// that the appid is the right game for that item, and the item is spelled correctly
-//
-// - # - # - # - # - # - # - # - # -# - # - # - # - # - # - # - # - # - #
+/*
+# - # - # - # - # - # - # - # - # -# - # - # - # - # - # - # - # - # - #
+#
+# WARNING: Steam market API only allows 19 requests per minute
+# You will get a Too Many Requests error if you exceed this!
+# ERROR: Internal Server Error means that the item does not exist, check
+# that the appid is the right game for that item, and the item is spelled correctly
+#
+# - # - # - # - # - # - # - # - # -# - # - # - # - # - # - # - # - # - #
+*/
 
 using System;
 using Newtonsoft.Json;
